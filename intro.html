@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Une lettre pour toi 💌</title>
+  <meta name="description" content="Quelqu'un a laissé une lettre pour toi…" />
+
+  <!-- Mêmes polices que le site principal -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💌</text></svg>" />
+
+  <!-- ════════════════════════════════════════════════════
+       Styles de l'intro — tout est ici, modifie librement.
+       Mêmes tokens que style.css pour rester cohérent.
+       ════════════════════════════════════════════════════ -->
+  <style>
+    :root {
+      --nuit:        #1c1024;
+      --nuit-2:      #2e1733;
+      --framboise:   #e0407a;
+      --framboise-2: #ff6b9d;
+      --rose-poudre: #f4b8c9;
+      --champagne:   #ecc88a;
+      --ivoire:      #fdf4ee;
+      --verre:       rgba(255, 255, 255, 0.06);
+      --verre-bord:  rgba(244, 184, 201, 0.25);
+      --police-titre: "Cormorant Garamond", Georgia, serif;
+      --police-texte: "Jost", system-ui, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--police-texte);
+      color: var(--ivoire);
+      background:
+        radial-gradient(1200px 700px at 80% -10%, rgba(224, 64, 122, 0.18), transparent 60%),
+        radial-gradient(900px 600px at 10% 110%, rgba(236, 200, 138, 0.10), transparent 55%),
+        linear-gradient(180deg, var(--nuit-2), var(--nuit) 60%);
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+      padding: 24px;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    /* ── Texte d'accroche ─────────────────────────────── */
+    .eyebrow {
+      font-size: 0.85rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--champagne);
+      animation: apparition 1s ease both;
+    }
+
+    .titre-intro {
+      font-family: var(--police-titre);
+      font-weight: 600;
+      font-size: clamp(2rem, 7vw, 3.4rem);
+      line-height: 1.15;
+      max-width: 640px;
+      animation: apparition 1s ease 0.25s both;
+    }
+    .titre-intro em { font-style: italic; color: var(--rose-poudre); }
+
+    .sous-titre {
+      opacity: 0.75;
+      font-size: 1.05rem;
+      animation: apparition 1s ease 0.5s both;
+    }
+
+    @keyframes apparition {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── L'enveloppe ──────────────────────────────────── */
+    .enveloppe {
+      font-size: clamp(80px, 18vw, 130px);
+      line-height: 1;
+      cursor: pointer;
+      background: none;
+      border: none;
+      animation: apparition 1s ease 0.7s both, leviter 3s ease-in-out 1.7s infinite;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      filter: drop-shadow(0 14px 34px rgba(224, 64, 122, 0.35));
+    }
+    .enveloppe:hover { transform: scale(1.12) rotate(-4deg); }
+    .enveloppe:focus-visible { outline: 3px solid var(--champagne); outline-offset: 8px; border-radius: 20px; }
+
+    @keyframes leviter {
+      0%, 100% { translate: 0 0; }
+      50%      { translate: 0 -12px; }
+    }
+
+    /* ── Bouton d'entrée ──────────────────────────────── */
+    .btn-ouvrir {
+      font-family: var(--police-texte);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+      padding: 16px 42px;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--framboise), var(--framboise-2));
+      box-shadow: 0 10px 30px rgba(224, 64, 122, 0.45);
+      animation: apparition 1s ease 0.9s both;
+      transition: transform 0.25s, box-shadow 0.25s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-ouvrir:hover {
+      transform: scale(1.07);
+      box-shadow: 0 14px 40px rgba(255, 107, 157, 0.6);
+    }
+    .btn-ouvrir:focus-visible { outline: 3px solid var(--champagne); outline-offset: 3px; }
+
+    /* ── Cœurs de fond ────────────────────────────────── */
+    .coeur-fond {
+      position: fixed;
+      bottom: -8vh;
+      font-size: var(--taille, 18px);
+      opacity: 0;
+      pointer-events: none;
+      animation: flotte var(--duree, 14s) linear infinite;
+      animation-delay: var(--delai, 0s);
+      z-index: -1;
+    }
+    @keyframes flotte {
+      0%   { transform: translateY(0) rotate(0deg);       opacity: 0; }
+      10%  { opacity: var(--opacite, 0.15); }
+      90%  { opacity: var(--opacite, 0.15); }
+      100% { transform: translateY(-115vh) rotate(20deg); opacity: 0; }
+    }
+
+    /* ── Transition de sortie vers index.html ─────────── */
+    body.sortie {
+      animation: fondu-sortie 0.6s ease forwards;
+    }
+    @keyframes fondu-sortie {
+      to { opacity: 0; transform: scale(1.04); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <p class="eyebrow">Psst… il me semble que tu m'en avais parlé...</p>
+
+  <h1 class="titre-intro">Quelqu'un t'a laissé<br /><em>une lettre</em></h1>
+
+  <p class="sous-titre">Clique sur l'enveloppe pour l'ouvrir 👀</p>
+
+  <!-- L'enveloppe cliquable -->
+  <button class="enveloppe" id="enveloppe" aria-label="Ouvrir la lettre">💌</button>
+
+  <!-- Bouton alternatif (mène aussi au site) -->
+  <a class="btn-ouvrir" id="btn-ouvrir" href="index.html">Ouvrir la lettre ✨</a>
+
+  <script>
+    /* ── Cœurs flottants de fond ─────────────────────── */
+    const symboles = ["❤️", "💗", "💕", "🤍"];
+    const nombre = window.innerWidth < 560 ? 10 : 16;
+    for (let i = 0; i < nombre; i++) {
+      const coeur = document.createElement("span");
+      coeur.className = "coeur-fond";
+      coeur.textContent = symboles[i % symboles.length];
+      coeur.style.left = Math.random() * 100 + "vw";
+      coeur.style.setProperty("--taille", 12 + Math.random() * 20 + "px");
+      coeur.style.setProperty("--duree", 11 + Math.random() * 14 + "s");
+      coeur.style.setProperty("--delai", -Math.random() * 20 + "s");
+      coeur.style.setProperty("--opacite", (0.08 + Math.random() * 0.12).toFixed(2));
+      document.body.appendChild(coeur);
+    }
+
+    /* ── Sortie en fondu vers index.html ─────────────── */
+    function ouvrirLaLettre(e) {
+      e.preventDefault();
+      document.body.classList.add("sortie");
+      setTimeout(() => { window.location.href = "index.html"; }, 550);
+    }
+    document.getElementById("enveloppe").addEventListener("click", ouvrirLaLettre);
+    document.getElementById("btn-ouvrir").addEventListener("click", ouvrirLaLettre);
+  </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Une question pour toi ❤️</title>
+  <meta name="description" content="J'ai une question très importante à te poser..." />
+
+  <!-- Polices : Cormorant Garamond (titres) + Jost (texte) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>" />
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════
+       Fond animé : cœurs flottants subtils (généré en JS)
+       ════════════════════════════════════════════ -->
+  <div id="fond-coeurs" aria-hidden="true"></div>
+
+  <!-- ════════════════════════════════════════════
+       Bouton musique (coin haut droit)
+       ════════════════════════════════════════════ -->
+  <button id="btn-musique" class="btn-musique" aria-label="Activer la musique" title="Musique 🎶">
+    <span id="icone-musique">🔇</span>
+  </button>
+  <!-- Ajoute ton fichier assets/musique.mp3 (voir README) -->
+  <audio id="audio-romantique" src="assets/musique.mp3" loop preload="none"></audio>
+
+  <!-- ════════════════════════════════════════════
+       ÉCRAN 2 : la grande question
+       ════════════════════════════════════════════ -->
+  <main id="ecran-question" class="ecran visible">
+    <div class="carte-question">
+      <p class="eyeb<p class="eyebrow">Planifions notre prochain date — j'ai mis mes envies, complète avec les tiennes</p>
+<h1 class="titre-principal">M'accorderais-tu<br /><em>un rendez-vous</em>&nbsp;?&nbsp;🩷</h1>
+
+      <div class="zone-boutons">
+        <button id="btn-oui" class="btn btn-oui">Oui 🥰</button>
+        <button id="btn-non" class="btn btn-non">Non 😈</button>
+      </div>
+    </div>
+
+    <!-- Compteur "temps depuis notre rencontre" -->
+    <section class="compteur-rencontre" aria-live="off">
+      <p class="compteur-titre">Temps qui s'est écoulé depuis que je t'ai vu au Xo pour la 1ere fois, rien par rapport à ce qu'il nous reste à faire </p>
+      <div id="compteur" class="compteur-valeurs">
+        <div class="compteur-bloc"><span id="cpt-jours">0</span><small>jours</small></div>
+        <div class="compteur-bloc"><span id="cpt-heures">0</span><small>heures</small></div>
+        <div class="compteur-bloc"><span id="cpt-minutes">0</span><small>minutes</small></div>
+        <div class="compteur-bloc"><span id="cpt-secondes">0</span><small>secondes</small></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ════════════════════════════════════════════
+       ÉCRAN 2 : célébration + formulaire
+       ════════════════════════════════════════════ -->
+  <main id="ecran-formulaire" class="ecran">
+    <div class="message-celebration">
+      <h2 class="titre-celebration">Excellent choix, j'avais confiance en toi&nbsp;❤️</h2>
+    </div>
+
+    <form id="form-date" class="carte-formulaire" novalidate>
+      <h2 class="titre-formulaire">Choisissons notre prochain <em>date</em> ❤️</h2>
+      <p class="sous-titre-formulaire">Coche tout ce qui te fait envie&nbsp;:</p>
+
+      <!-- Grille d'activités (les valeurs sont injectées par script.js) -->
+      <div id="grille-activites" class="grille-activites"></div>
+
+      <!-- Champ libre -->
+      <label class="champ-libre">
+        <span>Une autre idée&nbsp;?</span>
+        <textarea id="autre-idee" name="autre_idee" rows="3"
+          placeholder="Dis-moi tout… 💭"></textarea>
+      </label>
+
+      <button type="submit" id="btn-envoyer" class="btn btn-envoyer">
+        Envoyer mon choix 💌
+      </button>
+      <p id="statut-envoi" class="statut-envoi" role="status"></p>
+    </form>
+  </main>
+
+  <!-- ════════════════════════════════════════════
+       ÉCRAN 3 : confirmation finale
+       ════════════════════════════════════════════ -->
+  <main id="ecran-merci" class="ecran">
+    <div class="carte-question carte-merci">
+      <h2 class="titre-principal">C'est noté&nbsp;💖</h2>
+      <p class="texte-merci">Je prépare tout ça… Rendez-vous très bientôt&nbsp;✨</p>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
